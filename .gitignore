@@ -1,0 +1,71 @@
+# Byte-compiled Python files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment folder
+env/
+venv/
+
+# Logs and debug files
+*.log
+*.out
+*.err
+logs/
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Python-specific temporary files
+*.swp
+*.swo
+*.bak
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Environment variables and secrets
+.env
+*.env
+
+# Cache files
+.cache/
+*.cache
+*.mypy_cache/
+*.pytest_cache/
+
+# Pytest coverage files
+.coverage
+htmlcov/
+
+# Test artifacts
+*.spec
+*.test
+
+# Database and migration files
+*.sqlite3
+migrations/  # If you're using Alembic migrations, you might want to remove this line if migrations are tracked.
+
+# Docker
+*.dockerignore
+docker-compose.override.yml
+
+# IDE-specific files
+.vscode/
+.idea/
+*.iml
+
+# Build files
+build/
+dist/
+*.egg-info/
+
+# Python Packaging
+MANIFEST
+MANIFEST.in
+
+# Temporary files created by editors
+*.tmp
+*.temp
