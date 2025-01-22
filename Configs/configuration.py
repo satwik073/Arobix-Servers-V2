@@ -92,6 +92,22 @@ class TicketPriority(discriptors):
     NORMAL = "NORMAL"
     NON_URGENT = "NON_URGENT"
 
+class Permissions(discriptors):
+    __READ__ = "READ"
+    __WRITE__ = "WRITE"
+    __DELETE__ = "DELETE"
+    __UPDATE__ = "UPDATE"
+    __CREATE__ = "CREATE"
+    __ACCESS__ = "ACCESS"
+    __MANAGE__ = "MANAGE"
+    __EXECUTE__ = "EXECUTE"
+    MANAGE_SETTINGS = "MANAGE_SETTINGS"
+    MANAGE_USERS = "MANAGE_USERS"
+    MANAGE_ROLES = "MANAGE_ROLES"
+    MANAGE_PERMISSIONS = "MANAGE_PERMISSIONS"
+    MANAGE_AUDIT_LOGS = "MANAGE_AUDIT_LOGS"
+    MANAGE_INTEGRATION_SETTINGS = "MANAGE_INTEGRATION_SETTINGS"
+    
 class LanguagePreference(discriptors):
     ENGLISH = "ENGLISH"
     SPANISH = "SPANISH"
