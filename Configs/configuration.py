@@ -1,4 +1,7 @@
 from enum import Enum as discriptors
+class __NULLABLES__(discriptors):
+    __NULLABLES__ = ['NULLABLE', 'NOT NULLABLE']
+    EMPTY_STATE = ""
 class Role(discriptors):
     SUPER_ADMIN = "SUPER_ADMIN"
     AGENCY_OWNER = "AGENCY_OWNER"
