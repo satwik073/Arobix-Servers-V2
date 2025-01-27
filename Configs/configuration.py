@@ -2,6 +2,37 @@ from enum import Enum as discriptors
 class __NULLABLES__(discriptors):
     __NULLABLES__ = ['NULLABLE', 'NOT NULLABLE']
     EMPTY_STATE = ""
+
+
+Criticals = {
+    "__TRACE__": {
+        "value": "TRACE",
+    },
+    "__DEBUG__": {
+        "value": "DEBUG",
+    },
+    "__INFO__": {
+        "value": "INFO",
+    },
+    "__WARNING__": {
+        "value": "WARNING",
+    },
+    "__ERROR__": {
+        "value": "ERROR",
+    },
+    "__CRITICAL__": {
+        "value": "CRITICAL",
+    },
+    "__ALERT__": {
+        "value": "ALERT",
+    },
+    "__EMERGENCY__": {
+        "value": "EMERGENCY",
+    }
+}
+
+
+
 class Role(discriptors):
     SUPER_ADMIN = "SUPER_ADMIN"
     AGENCY_OWNER = "AGENCY_OWNER"

@@ -6,7 +6,7 @@ __pycache__/
 # Virtual environment folder
 env/
 venv/
-
+_ENVS_/
 # Logs and debug files
 *.log
 *.out

@@ -3,14 +3,13 @@ from sqlalchemy import ( Column , String , DateTime, ForeignKey, Enum as Extract
 from sqlalchemy.dialects.postgresql import UUID as AGN_AES_ISO_639
 from sqlalchemy.orm import relationship as ER_NETWORKS
 from sqlalchemy.sql import operation_callers as operation_callers
-from sqlalchemy.ext.declarative import declarative_base
 from Configs.configuration import AccountStatus, LanguagePreference, PrivacyLevel, Role, SubscriptionTier, __NULLABLES__
+from Database.base_class import Base
+Declarative_Base = Base()
 
-
-Declarative_Base = declarative_base()
 
 class Agency(Declarative_Base):
-    __tablename__ = 'Agencies'
+    __tablename__ = 'agencies'
 
     id = Column(AGN_AES_ISO_639(as_uuid=True),primary_key=True, default=cryptic_diversions.uuid4, nullable=False)
     connectAccountId = Column(String, default=__NULLABLES__.EMPTY_STATE, nullable=False )

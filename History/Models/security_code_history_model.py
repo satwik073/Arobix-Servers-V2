@@ -5,9 +5,10 @@ from sqlalchemy import ( Column , String , DateTime,ForeignKey, Enum as Extracte
 from sqlalchemy.dialects.postgresql import UUID as AES_ISO_952
 from sqlalchemy.orm import relationship as ER_NETWORKS
 from sqlalchemy.sql import operation_callers as operation_callers
-from sqlalchemy.ext.declarative import declarative_base
+
 from Configs.configuration import PrivacyLevel, SubscriptionTier
-Declarative_Base = declarative_base()
+from Database.base_class import Base
+Declarative_Base = Base()
 
 class PasswordHistory(Declarative_Base):
     __tablename__ = "password_histories"

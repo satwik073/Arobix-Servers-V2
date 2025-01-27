@@ -1,24 +1,25 @@
-import uuid as cryptic_diversions
-from sqlalchemy import ( Column , String , DateTime, ForeignKey, Enum as Extracters , Boolean , JSON, Index, Integer)
-from sqlalchemy.dialects.postgresql import UUID as AES_ISO_639
-from sqlalchemy.orm import relationship as ER_NETWORKS
-from sqlalchemy.sql import operation_callers as operation_callers
-from sqlalchemy.ext.declarative import declarative_base
+import uuid
+from sqlalchemy import (
+    Column, String, DateTime, ForeignKey, Enum, Boolean, JSON, Index, Integer
+)
+from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
 from Configs.configuration import AccountStatus, LanguagePreference, PrivacyLevel, Role, SubscriptionTier
+from Database.base_class import Base
 
-Declarative_Base = declarative_base()
 
-class User(Declarative_Base):
+class User(Base):
     __tablename__ = 'users'
 
-    id = Column(AES_ISO_639(as_uuid=True), primary_key=True, default=cryptic_diversions.uuid4, unique=True, nullable=False)
-    avatarUrl = Column(String , default=Role.SUBACCOUNT_USER, nullable=True)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
+    avatar_url = Column(String, nullable=True)
     name = Column(String, nullable=False)
     email = Column(String, unique=True, nullable=False)
     hashed_password = Column(String, nullable=False)
-    role = Column(Extracters(Role), default=Role.SUBACCOUNT_USER, nullable=False)
-    account_status = Column(Extracters (AccountStatus), default=AccountStatus.ACTIVE, nullable=False)
-    tenant_id = Column(AES_ISO_639(as_uuid=True), nullable=True)
+    role = Column(Enum(Role), default=Role.SUBACCOUNT_USER, nullable=False)
+    account_status = Column(Enum(AccountStatus), default=AccountStatus.ACTIVE, nullable=False)
+    tenant_id = Column(UUID(as_uuid=True), nullable=True)
     phone_number = Column(String, unique=True, nullable=True)
     is_verified = Column(Boolean, default=False, nullable=False)
     last_login = Column(DateTime, nullable=True)
@@ -26,27 +27,35 @@ class User(Declarative_Base):
     two_factor_secret = Column(String, nullable=True)
     reset_token = Column(String, nullable=True)
     oauth_providers = Column(JSON, default={})
-    password_history = Column(JSON, default=[]) 
+    password_history = Column(JSON, default=[])
     preferences = Column(JSON, default={})
-    language = Column(Extracters (LanguagePreference), default=LanguagePreference.ENGLISH, nullable=False)
+    language = Column(Enum(LanguagePreference), default=LanguagePreference.ENGLISH, nullable=False)
     timezone = Column(String, default="IST")
-    organization_id = Column(AES_ISO_639(as_uuid=True), ForeignKey("organizations.id", ondelete="SET NULL"), nullable=True)
-    agencyId = Column(AES_ISO_639(as_uuid=True), ForeignKey("agencies.id", ondelete="CASCADE"), nullable=True)
-    created_by = Column(AES_ISO_639(as_uuid=True), nullable=True) 
-    updated_by = Column(AES_ISO_639(as_uuid=True), nullable=True) 
-    created_at = Column(DateTime, default=operation_callers.now(), nullable=False)
-    updated_at = Column(DateTime, default=operation_callers.now(), onupdate=operation_callers.now(), nullable=False)
+    # organization_id = Column(UUID(as_uuid=True), ForeignKey("organizations.id", ondelete="SET NULL"), nullable=True)
+    # agency_id = Column(UUID(as_uuid=True), ForeignKey("agencies.id", ondelete="CASCADE"), nullable=True)
+    created_by = Column(UUID(as_uuid=True), nullable=True)
+    updated_by = Column(UUID(as_uuid=True), nullable=True)
+    created_at = Column(DateTime, default=func.now(), nullable=False)
+    updated_at = Column(DateTime, default=func.now(), onupdate=func.now(), nullable=False)
     deleted_at = Column(DateTime, nullable=True)
-    privacy_level = Column(Extracters (PrivacyLevel), default=PrivacyLevel.INTERNAL, nullable=False)
-    audit_logs = ER_NETWORKS("AuditLog", back_populates="user", cascade="all, delete-orphan")
-    subscription_plan = Column(Extracters (SubscriptionTier), default=SubscriptionTier.FREE, nullable=False)
+    privacy_level = Column(Enum(PrivacyLevel), default=PrivacyLevel.INTERNAL, nullable=False)
+    subscription_plan = Column(Enum(SubscriptionTier), default=SubscriptionTier.FREE, nullable=False)
     subscription_expiry = Column(DateTime, nullable=True)
-    notification_preferences = Column(JSON, default={"email": True,"sms": False,"push": True,"in_app": True})
-    organization = ER_NETWORKS("Organization", back_populates="users")
-    Agency = ER_NETWORKS("Agency", back_populates="users")
-    password_history = ER_NETWORKS("PasswordHistory", back_populates="user", cascade="all, delete-orphan")
-    Tickets = ER_NETWORKS("Ticket", back_populates="user", cascade="all, delete-orphan")
-    Permissions = ER_NETWORKS("Permissions", back_populates="user", cascade="all, delete-orphan")
-    Notification = ER_NETWORKS("Notification", back_populates="user", cascade="all, delete-orphan")
-    audit_logs = ER_NETWORKS("AuditLog", back_populates="user", cascade="all, delete-orphan")
-    __table_args__ = (Index("idx_email", "email"),Index("idx_account_status", "account_status"),Index("idx_subscription_plan", "subscription_plan"),Index("idx_tenant_id", "tenant_id"),)
+    notification_preferences = Column(JSON, default={"email": True, "sms": False, "push": True, "in_app": True})
+
+    # Relationships
+    # organization = relationship("Organization", back_populates="users")
+    # # agency = relationship("Agency", back_populates="users")
+    # password_history_rel = relationship("PasswordHistory", back_populates="user", cascade="all, delete-orphan")
+    # tickets = relationship("Ticket", back_populates="user", cascade="all, delete-orphan")
+    # permissions = relationship("Permissions", back_populates="user", cascade="all, delete-orphan")
+    # notifications = relationship("Notification", back_populates="user", cascade="all, delete-orphan")
+    # audit_logs = relationship("AuditLog", back_populates="user", cascade="all, delete-orphan")
+
+    # Indexes
+    __table_args__ = (
+        Index("idx_email", "email"),
+        Index("idx_account_status", "account_status"),
+        Index("idx_subscription_plan", "subscription_plan"),
+        Index("idx_tenant_id", "tenant_id"),
+    )
