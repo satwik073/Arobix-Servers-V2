@@ -9,13 +9,8 @@ sqlalchemy[asyncio]  # SQLAlchemy ORM with async support
 asyncpg  # PostgreSQL async driver
 alembic  # Database migrations
 
-# Redis (for caching and task queues)
-redis  # Redis client for Python
-aioredis  # Async Redis library
 
-# Task Queue (Celery + Redis backend)
-celery[redis]  # Celery for background task management
-flower  # Celery task monitoring dashboard
+
 
 # Authentication and Security
 python-jose[cryptography]  # JWT generation and verification
@@ -23,32 +18,16 @@ passlib[bcrypt]  # Password hashing utilities
 pyotp  # Time-based One-Time Passwords (for 2FA)
 argon2-cffi  # Advanced password hashing
 
-# GraphQL
-strawberry-graphql  # GraphQL integration with FastAPI
 
-# Monitoring and Tracing
-prometheus-client  # Prometheus metrics exporter
-opentelemetry-api  # OpenTelemetry API for tracing
-opentelemetry-sdk  # OpenTelemetry SDK
-opentelemetry-instrumentation-fastapi  # OpenTelemetry instrumentation for FastAPI
 
 # Search Functionality
 elasticsearch  # Elasticsearch client
 opensearch-py  # OpenSearch client
 
-# Testing
-pytest  # Testing framework
-pytest-asyncio  # Async support for pytest
-httpx  # Async HTTP client for testing
-
 # Logging and Observability
 structlog  # Advanced structured logging
 loguru  # Simplified logging framework
 sentry-sdk  # Sentry for error tracking
-
-# Caching
-aiocache  # Distributed caching for async apps
-diskcache  # File-based cache for persistent storage
 
 # API Rate Limiting
 slowapi  # Rate-limiting middleware for FastAPI
@@ -75,20 +54,4 @@ fastapi-events
 Jinja2
 PyJWT
 marshmallow-sqlalchemy
-Faker
-pandas
-pusher
-openpyxl
-ShopifyAPI
-nylas
-dramatiq
-jsonpath_rw
-jsonpath-ng
-requests-oauthlib
-kaiba
-pinecone
-more-itertools
-pdfkit-async
-panzi-json-logic
-pysftp
-mixpanel
+

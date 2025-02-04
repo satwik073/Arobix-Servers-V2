@@ -69,3 +69,4 @@ MANIFEST.in
 # Temporary files created by editors
 *.tmp
 *.temp
+.vercel
