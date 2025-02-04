@@ -29,6 +29,8 @@ from Subscription.Model.subscription_model import Subscription
 from Ticket.Model.ticket_model import Ticket
 from Tag_to_Ticket.Model.tag_to_ticket_model import TagToTicket
 app = FastAPI()
+from dotenv import load_dotenv
+load_dotenv()  # This loads the environment variables from the .env file
 
 # Include the user router
 app.include_router(user_router, prefix="/api/v1", tags=["Users"])
