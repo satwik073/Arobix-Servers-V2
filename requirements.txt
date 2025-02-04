@@ -10,48 +10,15 @@ asyncpg  # PostgreSQL async driver
 alembic  # Database migrations
 
 
-
-
-# Authentication and Security
-python-jose[cryptography]  # JWT generation and verification
-passlib[bcrypt]  # Password hashing utilities
-pyotp  # Time-based One-Time Passwords (for 2FA)
-argon2-cffi  # Advanced password hashing
-
-
-
-# Search Functionality
-elasticsearch  # Elasticsearch client
-opensearch-py  # OpenSearch client
-
-# Logging and Observability
-structlog  # Advanced structured logging
-loguru  # Simplified logging framework
 sentry-sdk  # Sentry for error tracking
 
 # API Rate Limiting
 slowapi  # Rate-limiting middleware for FastAPI
 
-# Job Scheduling
-apscheduler  # Advanced job scheduling
-
-# Internationalization (i18n)
-babel  # Internationalization and localization utilities
-
-# Other Utilities
 python-dotenv  # Environment variable management
 orjson  # Ultra-fast JSON handling
 pydantic[email]  # Pydantic email validation
-pillow  # Image processing
-shortuuid  # Generate short unique IDs
-phonenumbers  # Phone number parsing and validation
-aiobotocore
-boto3
-python-multipart
-pymagento
+
 elasticsearch_dsl[async]
-fastapi-events
-Jinja2
-PyJWT
-marshmallow-sqlalchemy
+
 
