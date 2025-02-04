@@ -14,7 +14,7 @@ class Permissions(Base):
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
     email = Column(String, ForeignKey("users.email", ondelete="CASCADE"), nullable=False, index=True)
-    sub_account_id = Column(UUID(as_uuid=True), ForeignKey("sub_accounts.id", ondelete="CASCADE"), nullable=False, index=True)
+    subAccountId = Column(UUID(as_uuid=True), ForeignKey("sub_account.id", ondelete="CASCADE"), nullable=False, index=True)
     access = Column(Boolean, default=False, nullable=False)
     role_override = Column(Enum(Role), nullable=True)
     assigned_by = Column(UUID(as_uuid=True), nullable=True, index=True)
@@ -23,7 +23,7 @@ class Permissions(Base):
     permissions_type = Column(Enum("basic", "advanced", "custom", name="permissions_type_enum"), default="basic", nullable=False)
     restrictions = Column(JSON, default={"read_only": False, "api_rate_limit": None}, nullable=False)
     audit_logs = Column(JSON, default=[])
-    additional_metadata = Column(JSON, default={})
+    additional_miscdata = Column(JSON, default={})
 
     # Relationships
     user = relationship("User", back_populates="permissions", lazy="joined", cascade="all, delete-orphan")
@@ -31,7 +31,7 @@ class Permissions(Base):
 
     # Indices
     __table_args__ = (
-        Index("idx_email_sub_account", "email", "sub_account_id"),
+        Index("idx_email_sub_account", "email", "subAccountId"),
         Index("idx_permissions_type", "permissions_type"),
         Index("idx_assigned_by", "assigned_by"),
     )

@@ -2,13 +2,13 @@ import uuid as cryptic_diversions
 from sqlalchemy import ( Column , String , DateTime, Enum as Extracters , Boolean ,Text, Index)
 from sqlalchemy.dialects.postgresql import UUID as AES_ISO_982
 from sqlalchemy.orm import relationship as ER_NETWORKS
-from sqlalchemy.sql import operation_callers as operation_callers
+from sqlalchemy.sql import func as operation_callers
 from Configs.configuration import PrivacyLevel, SubscriptionTier
 from Database.base_class import Base
-Declarative_Base = Base()
 
 
-class Organization(Declarative_Base):
+
+class Organization(Base):
     __tablename__ = "organizations"
 
 
@@ -54,5 +54,5 @@ class Organization(Declarative_Base):
         Index("idx_name", "name"),
         Index("idx_domain", "domain"),
         Index("idx_is_active", "is_active"),
-        Index("idx_subscription_plan", "subscription_plan"),
+        # Index("idx_subscription_plan", "subscription_plan"),
     )

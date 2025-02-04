@@ -4,13 +4,13 @@ import uuid as cryptic_diversions
 from sqlalchemy import ( Column , String , DateTime,ForeignKey, Enum as Extracters , Boolean ,Text, Index)
 from sqlalchemy.dialects.postgresql import UUID as AES_ISO_952
 from sqlalchemy.orm import relationship as ER_NETWORKS
-from sqlalchemy.sql import operation_callers as operation_callers
+from sqlalchemy.sql import func as operation_callers
 
 from Configs.configuration import PrivacyLevel, SubscriptionTier
 from Database.base_class import Base
-Declarative_Base = Base()
 
-class PasswordHistory(Declarative_Base):
+
+class PasswordHistory(Base):
     __tablename__ = "password_histories"
 
     id = Column(AES_ISO_952(as_uuid=True), primary_key=True, default=cryptic_diversions.uuid4, unique=True, nullable=False)

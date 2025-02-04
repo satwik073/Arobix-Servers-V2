@@ -13,7 +13,7 @@ class User(Base):
     __tablename__ = 'users'
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
-    avatar_url = Column(String, nullable=True)
+    avatarUrl = Column(String, nullable=True)
     name = Column(String, nullable=False)
     email = Column(String, unique=True, nullable=False)
     hashed_password = Column(String, nullable=False)
@@ -31,26 +31,25 @@ class User(Base):
     preferences = Column(JSON, default={})
     language = Column(Enum(LanguagePreference), default=LanguagePreference.ENGLISH, nullable=False)
     timezone = Column(String, default="IST")
-    # organization_id = Column(UUID(as_uuid=True), ForeignKey("organizations.id", ondelete="SET NULL"), nullable=True)
-    # agency_id = Column(UUID(as_uuid=True), ForeignKey("agencies.id", ondelete="CASCADE"), nullable=True)
+    organization_id = Column(UUID(as_uuid=True), ForeignKey("organizations.id", ondelete="SET NULL"), nullable=True)
+    agencyId = Column(UUID(as_uuid=True), ForeignKey("agencies.id", ondelete="CASCADE"), nullable=True)
     created_by = Column(UUID(as_uuid=True), nullable=True)
     updated_by = Column(UUID(as_uuid=True), nullable=True)
-    created_at = Column(DateTime, default=func.now(), nullable=False)
-    updated_at = Column(DateTime, default=func.now(), onupdate=func.now(), nullable=False)
+    createdAt = Column(DateTime, default=func.now(), nullable=False)
+    updatedAt = Column(DateTime, default=func.now(), onupdate=func.now(), nullable=False)
     deleted_at = Column(DateTime, nullable=True)
     privacy_level = Column(Enum(PrivacyLevel), default=PrivacyLevel.INTERNAL, nullable=False)
     subscription_plan = Column(Enum(SubscriptionTier), default=SubscriptionTier.FREE, nullable=False)
     subscription_expiry = Column(DateTime, nullable=True)
     notification_preferences = Column(JSON, default={"email": True, "sms": False, "push": True, "in_app": True})
 
-    # Relationships
-    # organization = relationship("Organization", back_populates="users")
-    # # agency = relationship("Agency", back_populates="users")
-    # password_history_rel = relationship("PasswordHistory", back_populates="user", cascade="all, delete-orphan")
-    # tickets = relationship("Ticket", back_populates="user", cascade="all, delete-orphan")
-    # permissions = relationship("Permissions", back_populates="user", cascade="all, delete-orphan")
-    # notifications = relationship("Notification", back_populates="user", cascade="all, delete-orphan")
-    # audit_logs = relationship("AuditLog", back_populates="user", cascade="all, delete-orphan")
+    Organization = relationship("Organization", back_populates="users")
+    Agency = relationship("Agency", back_populates="users")
+    password_history_rel = relationship("PasswordHistory", back_populates="user", cascade="all, delete-orphan")
+    Ticket = relationship("Ticket", back_populates="user", cascade="all, delete-orphan")
+    Permissions = relationship("Permissions", back_populates="user", cascade="all, delete-orphan")
+    Notification = relationship("Notification", back_populates="user", cascade="all, delete-orphan")
+    audit_logs = relationship("AuditLog", back_populates="user", cascade="all, delete-orphan")
 
     # Indexes
     __table_args__ = (
