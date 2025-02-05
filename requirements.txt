@@ -3,6 +3,7 @@ fastapi[all]
 
 # ASGI Server
 uvicorn[standard]  # ASGI server for production
+
 psycopg2
 # Database (SQLAlchemy, Alembic, asyncpg)
 sqlalchemy[asyncio]  # SQLAlchemy ORM with async support
