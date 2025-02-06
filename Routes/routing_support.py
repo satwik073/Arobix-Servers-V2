@@ -1,7 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import IntegrityError
-from passlib.context import CryptContext
 import logging
 from Database.database_settings import get_database_secure_connection
 from Users.Models.user_model import User
@@ -9,10 +8,7 @@ from Users.Schemas.user_schema import UserCreate, UserResponse
 
 router = APIRouter()
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-def hash_password(password: str) -> str:
-    return pwd_context.hash(password)
 
 @router.post("/user/creation",summary="Create a new user")
 async def create_user(user_in: UserCreate, db: AsyncSession = Depends(get_database_secure_connection)):
@@ -21,11 +17,10 @@ async def create_user(user_in: UserCreate, db: AsyncSession = Depends(get_databa
         if existing_user.scalars().first():
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="User with this email already exists")
 
-        hashed_password = hash_password(user_in.password)
         new_user = User(
             name=user_in.name,
             email=user_in.email,
-            hashed_password=hashed_password,
+            hashed_password=user_in.password,
             role=user_in.role,
             account_status=user_in.account_status,
             phone_number=user_in.phone_number,
