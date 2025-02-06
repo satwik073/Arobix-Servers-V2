@@ -20,7 +20,7 @@ class Contact(Base):
     is_active = Column(Boolean, default=True)  # Field for contact activity status
 
     # Relationships
-    sub_account = relationship("SubAccount", back_populates="contacts")
+    subAccount = relationship("SubAccount", back_populates="contacts")
     tickets = relationship("Ticket", back_populates="contact", cascade="all, delete-orphan")
 
     __table_args__ = (

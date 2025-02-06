@@ -23,8 +23,8 @@ from Configs.configuration import (
     LanguagePreference
 )
 from Database.base_class import Base
-
-
+from Delta.sub_account_external_partner_association import sub_account_external_partner_association
+from Delta.sub_account_user_association import sub_account_user_association
 class SubAccount(Base):
     __tablename__ = "sub_account"
 
@@ -52,7 +52,6 @@ class SubAccount(Base):
     preferences = Column(JSON, default={"theme": "default", "currency": "USD"}, nullable=True)
     notificationSettings = Column(JSON, default={"email": True, "sms": False, "push": True}, nullable=True)
     integrations = Column(JSON, default={"crm": None, "email_marketing": None}, nullable=True)
-    auditLogs = Column(JSON, default=[], nullable=True)
     revenue = Column(Float, default=0.0, nullable=True)
     tags = Column(JSON, default=[], nullable=True)
     taxId = Column(String, nullable=True)
@@ -70,7 +69,7 @@ class SubAccount(Base):
     contractEndDate = Column(DateTime, nullable=True)
     serviceLevelAgreement = Column(Text, nullable=True)
 
-    sidebarOptions = relationship("SubAccountSidebarOption", back_populates="subAccount", cascade="all, delete-orphan")
+    sidebar_options = relationship("SubAccountSidebarOption", back_populates="subAccount", cascade="all, delete-orphan")
     permissions = relationship("Permissions", back_populates="subAccount", cascade="all, delete-orphan")
     funnels = relationship("Funnel", back_populates="subAccount", cascade="all, delete-orphan")
     media = relationship("Media", back_populates="subAccount", cascade="all, delete-orphan")
@@ -80,11 +79,11 @@ class SubAccount(Base):
     pipelines = relationship("Pipeline", back_populates="subAccount", cascade="all, delete-orphan")
     tags = relationship("Tag", back_populates="subAccount", cascade="all, delete-orphan")
     notifications = relationship("Notification", back_populates="subAccount", cascade="all, delete-orphan")
-    subscription = relationship("Subscription", back_populates="subAccount", uselist=False)
+    subscription = relationship("Subscription", back_populates="subAccount", uselist=False) 
+    subscriptionId = Column(UUID(as_uuid=True), ForeignKey("subscriptions.id", ondelete="SET NULL"), nullable=True)  # Add this ForeignKey
 
-
-    externalPartners = relationship("ExternalPartner", back_populates="subAccounts", secondary="sub_account_external_partner_association")
-    subAccountTeamMembers = relationship("User", back_populates="subAccount", secondary="sub_account_user_association")
+    externalPartners = relationship("ExternalPartner", back_populates="subAccounts", secondary=sub_account_external_partner_association)
+    subAccountTeamMembers = relationship("User", back_populates="subAccounts", secondary=sub_account_user_association)
 
     performanceMetrics = Column(JSON, default={"user_growth": 0, "revenue_growth": 0}, nullable=True)
     # Indexes for faster querying

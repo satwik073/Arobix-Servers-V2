@@ -22,7 +22,7 @@ class Subscription(Base):
     current_period_end_date = Column(DateTime, nullable=False)
     subscription_id = Column(String, unique=True, nullable=False)
     agency_id = Column(UUID(as_uuid=True), ForeignKey("agencies.id", ondelete="CASCADE"), nullable=True)
-
+    subAccount = relationship("SubAccount", back_populates="subscription") 
     # Relationships
     agency = relationship("Agency", back_populates="subscriptions")
 

@@ -21,7 +21,7 @@ class Notification(Base):
 
     # Relationships
     agency = relationship("Agency", back_populates="notifications")
-    sub_account = relationship("SubAccount", back_populates="notifications")
+    subAccount = relationship("SubAccount", back_populates="notifications")
     user = relationship("User", back_populates="notifications")
 
     __table_args__ = (

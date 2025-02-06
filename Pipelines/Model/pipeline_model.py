@@ -16,7 +16,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from Configs.configuration import SubscriptionTier
 from Database.base_class import Base
-
+from Delta.pipeline_tags import pipeline_tags
 
 class Pipeline(Base):
     __tablename__ = "pipelines"
@@ -36,9 +36,10 @@ class Pipeline(Base):
     integrations = Column(JSON, default={}, nullable=True)
     is_public = Column(Boolean, default=False, nullable=False)
 
-    subAccount = relationship("SubAccount", back_populates="pipelines", cascade="all, delete-orphan")
+    subAccount = relationship("SubAccount", back_populates="pipelines")
     lanes = relationship("Lane", back_populates="pipeline", cascade="all, delete-orphan")
-    tags = relationship("Tag", secondary="pipeline_tags", back_populates="pipelines")
+    tags = relationship("Tag", secondary=pipeline_tags, back_populates="pipelines")
+
 
     __table_args__ = (
         Index("idx_sub_account_id", "subAccountId"),

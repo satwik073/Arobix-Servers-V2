@@ -50,20 +50,19 @@ class Agency(Base):
     preferences = Column(JSON, default=lambda: {"dashboard_theme": "default", "currency": "USD"})
     notification_settings = Column(JSON, default=lambda: {"email": True, "sms": False, "push": True})
     integrations = Column(JSON, default=lambda: {"crm": None, "email_marketing": None})
-    audit_logs = Column(JSON, default=lambda: [])
     tax_id = Column(String, nullable=True)
     billing_address = Column(String, nullable=True)
     terms_and_conditions = Column(String, nullable=True)
     privacy_policy = Column(String, nullable=True)
 
-    # Relationships
+
     Users = ER_NETWORKS("User", back_populates="agency", cascade="all, delete-orphan", lazy="joined")
-    SubAccount = ER_NETWORKS("SubAccount", back_populates="agency", cascade="all, delete-orphan", lazy="joined")
-    SidebarOption = ER_NETWORKS("AgencySidebarOption", back_populates="agency", cascade="all, delete-orphan", lazy="joined")
-    Invitation = ER_NETWORKS("Invitation", back_populates="agency", cascade="all, delete-orphan", lazy="joined")
-    Notification = ER_NETWORKS("Notification", back_populates="agency", cascade="all, delete-orphan", lazy="joined")
-    Subscription = ER_NETWORKS("Subscription", back_populates="agency", uselist=False, lazy="joined")
-    AddOns = ER_NETWORKS("AddOns", back_populates="agency", cascade="all, delete-orphan", lazy="joined")
+    subAccounts = ER_NETWORKS("SubAccount", back_populates="agency", cascade="all, delete-orphan", lazy="joined")
+    sidebar_options = ER_NETWORKS("AgencySidebarOption", back_populates="agency", cascade="all, delete-orphan", lazy="joined")
+    invitations = ER_NETWORKS("Invitation", back_populates="agency", cascade="all, delete-orphan", lazy="joined")
+    notifications = ER_NETWORKS("Notification", back_populates="agency", cascade="all, delete-orphan", lazy="joined")
+    subscriptions = ER_NETWORKS("Subscription", back_populates="agency", uselist=False, lazy="joined")
+    add_ons = ER_NETWORKS("AddOns", back_populates="agency", cascade="all, delete-orphan", lazy="joined")
 
     # Indexes
     __table_args__ = (

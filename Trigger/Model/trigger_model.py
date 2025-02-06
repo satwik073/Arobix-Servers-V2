@@ -31,7 +31,7 @@ class Trigger(Base):
     external_reference_id = Column(BigInteger, unique=True, nullable=True)
 
 
-    sub_account = relationship("SubAccount", back_populates="triggers")
+    subAccount = relationship("SubAccount", back_populates="triggers")
     automations = relationship("Automation", back_populates="trigger", cascade="all, delete-orphan")
 
     __table_args__ = (

@@ -16,8 +16,8 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from Database.base_class import Base
 from Configs.configuration import AccountStatus
-
-
+from Delta.pipeline_tags import pipeline_tags
+from Delta.ticket_tags_association import ticket_tags_association
 class Tag(Base):
     __tablename__ = "tags"
 
@@ -32,7 +32,8 @@ class Tag(Base):
     subAccountId = Column(UUID(as_uuid=True), ForeignKey("sub_account.id", ondelete="CASCADE"), nullable=False)
     subAccount = relationship("SubAccount", back_populates="tags")
 
-    tickets = relationship("Ticket", back_populates="tag", cascade="all, delete-orphan")
+    pipelines = relationship("Pipeline", secondary=pipeline_tags, back_populates="tags")
+    tickets = relationship("Ticket", secondary=ticket_tags_association, back_populates="tags")
     miscdata = Column(JSON, default={}, nullable=True)
     
     priority = Column(Integer, default=1, nullable=True)  # Can be used for sorting or importance

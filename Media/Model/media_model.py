@@ -19,7 +19,7 @@ class Media(Base):
     miscdata = Column(JSON, default={})  # Stores extra information about media
 
     # Relationships
-    sub_account = relationship("SubAccount", back_populates="media")
+    subAccount = relationship("SubAccount", back_populates="media")
 
     __table_args__ = (
         Index("idx_media_sub_account_id", "sub_account_id"),

@@ -20,7 +20,7 @@ class SubAccountSidebarOption(Base):
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now(), nullable=False)
 
     # Relationships
-    sub_account = relationship("SubAccount", back_populates="sidebar_options")
+    subAccount = relationship("SubAccount", back_populates="sidebar_options")
 
     __table_args__ = (
         Index("idx_sub_account_sidebar_option_sub_account_id", "sub_account_id"),

@@ -34,7 +34,7 @@ class Automation(Base):
     external_id = Column(BigInteger, unique=True, nullable=True)
 
     trigger = relationship("Trigger", back_populates="automations")
-    sub_account = relationship("SubAccount", back_populates="automations")
+    subAccount = relationship("SubAccount", back_populates="automations")
     action_items = relationship("Action", back_populates="automation", cascade="all, delete-orphan")
     automation_instances = relationship("AutomationInstance", back_populates="automation", cascade="all, delete-orphan")
 

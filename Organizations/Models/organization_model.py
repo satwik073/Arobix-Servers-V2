@@ -48,7 +48,6 @@ class Organization(Base):
  
     users = ER_NETWORKS("User", back_populates="organization", cascade="all, delete-orphan")  
     projects = ER_NETWORKS("Project", back_populates="organization", cascade="all, delete-orphan")  
-    audit_logs = ER_NETWORKS("AuditLog", back_populates="organization", cascade="all, delete-orphan") 
 
     __table_args__ = (
         Index("idx_name", "name"),

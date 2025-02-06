@@ -28,6 +28,9 @@ from Subaccount_Sidebar_Option.Model.subaccount_sidebar_model import SubAccountS
 from Subscription.Model.subscription_model import Subscription
 from Ticket.Model.ticket_model import Ticket
 from Tag_to_Ticket.Model.tag_to_ticket_model import TagToTicket
+from Add_Ons.Model.add_ons_model import AddOns
+from External_Partners.external_partners import ExternalPartner
+from Projects.Model.project_model import Project
 app = FastAPI()
 from dotenv import load_dotenv
 load_dotenv()  # This loads the environment variables from the .env file

@@ -7,6 +7,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from Configs.configuration import AccountStatus, LanguagePreference, PrivacyLevel, Role, SubscriptionTier
 from Database.base_class import Base
+from Delta.sub_account_user_association import sub_account_user_association
 
 
 class User(Base):
@@ -42,14 +43,19 @@ class User(Base):
     subscription_plan = Column(Enum(SubscriptionTier), default=SubscriptionTier.FREE, nullable=False)
     subscription_expiry = Column(DateTime, nullable=True)
     notification_preferences = Column(JSON, default={"email": True, "sms": False, "push": True, "in_app": True})
-
-    Organization = relationship("Organization", back_populates="users")
-    Agency = relationship("Agency", back_populates="users")
-    password_history_rel = relationship("PasswordHistory", back_populates="user", cascade="all, delete-orphan")
+    assigned_tickets = relationship("Ticket", back_populates="assigned_user", cascade="all, delete-orphan")
+    subAccounts = relationship(
+        "SubAccount",
+        back_populates="subAccountTeamMembers",
+        secondary=sub_account_user_association
+    )
+    organization = relationship("Organization", back_populates="users")
+    agency = relationship("Agency", back_populates="Users")
+    password_history = relationship("PasswordHistory", back_populates="user", cascade="all, delete-orphan")
     Ticket = relationship("Ticket", back_populates="user", cascade="all, delete-orphan")
-    Permissions = relationship("Permissions", back_populates="user", cascade="all, delete-orphan")
-    Notification = relationship("Notification", back_populates="user", cascade="all, delete-orphan")
-    audit_logs = relationship("AuditLog", back_populates="user", cascade="all, delete-orphan")
+    permissions = relationship("Permissions", back_populates="user", cascade="all, delete-orphan")
+    notifications = relationship("Notification", back_populates="user", cascade="all, delete-orphan")
+
 
     # Indexes
     __table_args__ = (

@@ -3,7 +3,7 @@ from sqlalchemy import Column, String, DateTime, Integer, ForeignKey, Enum, JSON
 from sqlalchemy.orm import relationship
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.sql import func
-# from Configs.configuration import TicketPriority, TicketStatus
+from Delta.ticket_tags_association import ticket_tags_association
 from Database.base_class import Base
 
 class Ticket(Base):
@@ -25,12 +25,13 @@ class Ticket(Base):
     tags = Column(JSON, default=[])
     custom_fields = Column(JSON, default={})
     is_public = Column(Boolean, default=False, nullable=False)
-
+    assigned_user = relationship("User", back_populates="assigned_tickets")
     # Relationships
     lane = relationship("Lane", back_populates="tickets")
-    customer = relationship("Contact", back_populates="tickets", cascade="all, delete-orphan")
-    assigned_user = relationship("User", back_populates="assigned_tickets", cascade="all, delete-orphan")
-    tags_assigned = relationship("Tag", secondary="ticket_tags", back_populates="tickets", cascade="all, delete-orphan")
+    customer = relationship("Contact", back_populates="tickets")
+    user = relationship("User", back_populates="assigned_tickets")
+    tags = relationship("Tag", secondary=ticket_tags_association, back_populates="tickets")
+    contact = relationship("Contact", back_populates="tickets")
 
     __table_args__ = (
         Index("idx_ticket_lane_id", "laneId"),

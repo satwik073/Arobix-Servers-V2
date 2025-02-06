@@ -61,6 +61,12 @@ class InvitationStatus(discriptors):
     COMPLETED = "COMPLETED"
     INVALID = "INVALID"
 
+class ProjectStatus(discriptors):
+    ACTIVE = "Active"
+    COMPLETED = "Completed"
+    ON_HOLD = "On Hold"
+    CANCELLED = "Cancelled"
+
 class AccountStatus(discriptors):
     ACTIVE = "ACTIVE"
     SUSPENDED = "SUSPENDED"

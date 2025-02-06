@@ -22,7 +22,7 @@ class Funnel(Base):
     live_products = Column(String, default="[]", nullable=False)  # Store list of products in JSON format
 
     # Relationships
-    sub_account = relationship("SubAccount", back_populates="funnels")
+    subAccount= relationship("SubAccount", back_populates="funnels")
     funnel_pages = relationship("FunnelPage", back_populates="funnel", cascade="all, delete-orphan")
     class_names = relationship("ClassName", back_populates="funnel", cascade="all, delete-orphan")
 
