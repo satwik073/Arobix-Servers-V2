@@ -49,6 +49,7 @@ class User(Base):
         back_populates="subAccountTeamMembers",
         secondary=sub_account_user_association
     )
+    permissions_by_authority = Column(JSON)
     organization = relationship("Organization", back_populates="users")
     agency = relationship("Agency", back_populates="Users")
     password_history = relationship("PasswordHistory", back_populates="user", cascade="all, delete-orphan")
