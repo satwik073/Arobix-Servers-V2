@@ -1,5 +1,5 @@
 import uuid as cryptic_diversions
-from sqlalchemy import ( Column , String , DateTime, Enum as Extracters , Boolean ,Text, Index)
+from sqlalchemy import ( Column , String , DateTime, Enum as Extracters , Boolean ,Text, ARRAY,Index)
 from sqlalchemy.dialects.postgresql import UUID as AES_ISO_982
 from sqlalchemy.orm import relationship as ER_NETWORKS
 from sqlalchemy.sql import func as operation_callers
@@ -45,6 +45,7 @@ class Organization(Base):
     created_by = Column(AES_ISO_982(as_uuid=True), nullable=True)
     updated_by = Column(AES_ISO_982(as_uuid=True), nullable=True)  
 
+    agencies = Column(ARRAY(AES_ISO_982), nullable=True)
  
     users = ER_NETWORKS("User", back_populates="organization", cascade="all, delete-orphan")  
     projects = ER_NETWORKS("Project", back_populates="organization", cascade="all, delete-orphan")  

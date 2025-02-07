@@ -57,7 +57,6 @@ class User(Base):
     permissions = relationship("Permissions", back_populates="user", cascade="all, delete-orphan")
     notifications = relationship("Notification", back_populates="user", cascade="all, delete-orphan")
 
-
     # Indexes
     __table_args__ = (
         Index("idx_email", "email"),

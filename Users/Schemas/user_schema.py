@@ -1,24 +1,32 @@
 from pydantic import BaseModel, EmailStr, Field, validator
 from uuid import UUID
-from typing import Optional, Dict, List
+from typing import Optional, Dict, List, Union
 from datetime import datetime
 from Configs.configuration import Role, AccountStatus, LanguagePreference, SubscriptionTier
 
 
 class UserCreate(BaseModel):
-    name: str = Field(..., min_length=3, max_length=100)
-    email: EmailStr = Field(...)
-    password: str = Field(..., min_length=8, max_length=128)
-    role: Role = Field(default=Role.SUBACCOUNT_USER)
-    account_status: AccountStatus = Field(default=AccountStatus.ACTIVE)
-    phone_number: Optional[str] = Field(None)
-    preferences: Optional[Dict[str, str]] = Field(default={})
-    language: LanguagePreference = Field(default=LanguagePreference.ENGLISH)
-    timezone: str = Field(default="UTC")
-    subscription_plan: SubscriptionTier = Field(default=SubscriptionTier.FREE)
-    created_by: Optional[UUID] = Field(None)
-    updated_by: Optional[UUID] = Field(None)
+    name: str
+    email: EmailStr
+    password: str
+    account_status: str
+    phone_number: Optional[str]
+    
+    # Preferences should allow dictionary for notifications
+    preferences: Optional[Dict[str, Union[str, Dict[str, bool]]]] = {}
 
+    language: Optional[str] = "ENGLISH"
+    timezone: Optional[str] = "PST"
+    subscription_plan: Optional[str] = "GROWTH"
+    created_by: Optional[UUID]=None 
+    
+    # Organization can be provided OR automatically created
+    organization_id: Optional[UUID] = None  
+    organization_name: Optional[str] = None  
+    agencies: Optional[List[UUID]] = Field(default=[])
+
+    class Config:
+        orm_mode = True
 
 class UserResponse(BaseModel):
     id: UUID = Field(...)
