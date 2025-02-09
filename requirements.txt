@@ -9,7 +9,7 @@ pymongo[srv]
 sqlalchemy[asyncio]  # SQLAlchemy ORM with async support
 asyncpg  # PostgreSQL async driver
 alembic  # Database migrations
-
+motor
 
 sentry-sdk  # Sentry for error tracking
 
