@@ -46,6 +46,22 @@ from pymongo.errors import ConfigurationError
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
+class MongoDB:
+    client: AsyncIOMotorClient = None
+    db = None
+
+
+async def connect_to_mongo():
+    MongoDB.client = AsyncIOMotorClient(os.getenv("DATABASE_URL"))
+    MongoDB.db = MongoDB.client["arobix-prod-server"]
+    print("✅ MongoDB connected")
+
+# Disconnect from MongoDB on app shutdown
+async def close_mongo_connection():
+    if MongoDB.client:
+        MongoDB.client.close()
+        print("🛑 MongoDB connection closed")
+        
 try:
     # Create client immediately
     client = AsyncIOMotorClient(settings.DATABASE_URL)

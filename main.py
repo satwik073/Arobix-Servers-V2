@@ -56,7 +56,7 @@
 from fastapi import FastAPI
 from dotenv import load_dotenv
 from Routes.routing_support import router as user_router
-
+from Database.database_settings import connect_to_mongo, close_mongo_connection
 app = FastAPI()
 
 # ✅ Load Environment Variables
@@ -70,9 +70,9 @@ async def default():
     return {"message": "Welcome to the FastAPI + MongoDB application"}
 
 @app.on_event("startup")
-async def startup():
-    print("🚀 FastAPI App Connected to MongoDB!")
+async def startup_event():
+    await connect_to_mongo()
 
 @app.on_event("shutdown")
-async def shutdown():
-    print("🔴 Closing MongoDB Connection")
+async def shutdown_event():
+    await close_mongo_connection()
