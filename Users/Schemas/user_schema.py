@@ -19,10 +19,11 @@ class UserCreate(BaseModel):
     timezone: Optional[str] = "PST"
     subscription_plan: Optional[str] = "GROWTH"
     created_by: Optional[UUID]=None 
-    
+    data_encryption_level: Optional[str] = "CONFIDENTIAL" 
     # Organization can be provided OR automatically created
     organization_id: Optional[UUID] = None  
     organization_name: Optional[str] = None  
+    user_ids: List[UUID] = Field(default=[])
     agencies: Optional[List[UUID]] = Field(default=[])
 
     class Config:

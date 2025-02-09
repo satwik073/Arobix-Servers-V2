@@ -3,5 +3,5 @@ from Configs.configuration import Role
 
 
 
-def get_permissions_for_role(role: str):
+def get_default_permissions(role: str):
     return role_permissions.get(role, role_permissions[Role.SUPER_ADMIN])
