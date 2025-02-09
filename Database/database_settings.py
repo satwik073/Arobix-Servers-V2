@@ -37,6 +37,7 @@
 #         finally:
 #             await session.close()
 
+import os
 from motor.motor_asyncio import AsyncIOMotorClient
 from Core.config_parameters import settings
 import logging
