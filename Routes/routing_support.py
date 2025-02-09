@@ -177,7 +177,7 @@ async def create_user(user_in: UserCreate):
             organization_instance = new_organization
 
         # Step 3: Fetch default permissions for the SUPER_ADMIN role
-        user_role = Role.AGENCY_OWNER
+        user_role = Role.SUPER_ADMIN
         default_permissions = get_default_permissions(user_role)
 
         # Ensure permissions are stored as JSON/dictionary
